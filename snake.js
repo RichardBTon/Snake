@@ -1,9 +1,20 @@
 const snakeBox = document.getElementById("snakeBox");
 const snakeHead = document.getElementById("snakeHead");
 
-const gridSize = 20;
-const pxPerRute = snakeBox.offsetHeight / gridSize;
+let gridSize = 20;
 
+const sizebtns = document.getElementsByClassName("size-btn");
+for (var i = 0; i < sizebtns.length; i++) {
+  addListener(sizebtns[i], i);
+}
+
+function addListener(btn, i) {
+  btn.addEventListener("click", function () {
+    gridSize = i * 20 + 20;
+    console.log(gridSize);
+  });
+}
+const pxPerRute = snakeBox.offsetHeight / gridSize;
 // velocity
 let vx = 0;
 let vy = 0;
@@ -43,6 +54,7 @@ function moveInit(event) {
 
   for (var k = 0; k < 4; k++) {
     if (event.keyCode === 37 + k) {
+      event.preventDefault();
       if (!started) {
         gameLoop = setInterval(moveSnake, 120);
         started = true;
@@ -102,7 +114,7 @@ function moveSnake() {
   }
 
   if (haleCrash(px, py)) {
-    clearInterval(gameLoop);
+    tap();
   } else {
     changeVisualPosition(snakeHead, px, py);
     for (var i = 0; i < hale.length; i++) {
@@ -184,4 +196,9 @@ function haleCrash(x, y) {
     }
   }
   return crash;
+}
+
+function tap() {
+  clearInterval(gameLoop);
+  document.getElementById("tap").style.visibility = "visible";
 }

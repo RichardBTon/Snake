@@ -36,7 +36,7 @@ h2 {
   width: var(--snake_dimentions);
   background-color: var(--snake_backgroundColor);
   margin: auto;
-  margin-top: 150px;
+  margin-bottom: 200px;
   position: relative;
 }
 
