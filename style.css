@@ -1,14 +1,16 @@
 :root {
-  --snake_dimentions : 900px;
+  /* Dette bør være noe som går opp i noe enkelt. Ikke sett noe primtall eller shit */
+  --snake_dimentions: 800px;
 }
-
-
-body, html {
+* {
+  box-sizing: border-box;
+}
+body,
+html {
   margin: 0;
   padding: 0;
   background: lightcoral;
-  font-family: 'Work Sans', sans-serif;
-
+  font-family: "Work Sans", sans-serif;
 }
 .main-wrapper {
   width: 60%;
@@ -27,4 +29,23 @@ h1 {
   background-color: black;
   margin: auto;
   margin-top: 150px;
+  position: relative;
+}
+
+.snake-square {
+  position: absolute;
+
+  height: calc(var(--snake_dimentions) / 40);
+  width: calc(var(--snake_dimentions) / 40);
+
+  border-radius: 2px;
+  background-color: red;
+}
+
+#snakeHead {
+  /* left: calc(400px - var(--snake_dimentions) / 80);
+  top: calc(400px - var(--snake_dimentions) / 80); */
+
+  left: calc(var(--snake_dimentions) / 5);
+  top: calc(var(--snake_dimentions) / 5);
 }
