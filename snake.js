@@ -3,38 +3,37 @@ const snakeHead = document.getElementById("snakeHead");
 
 const gridSize = 20;
 const pxPerRute = snakeBox.offsetHeight / gridSize;
-console.log(pxPerRute);
 
+// fart
 let vx = 0;
 let vy = 0;
-
+// posisjon
 let px = 8;
 let py = 8;
-let halelength = 3;
+// eple posisjon
+let ax = 15;
+let ay = 8;
 
-// let grid = [];
-// function rutenettInit(rutenett) {
-//   const row = [];
-//   row.length = gridSize;
-//   row.fill(0);
-//   for (var i = 0; i < gridSize; i++) {
-//     rutenett.push(row);
-//   }
-// }
-// rutenettInit(grid);
+let halelength = 5;
 
 let hale = [];
 haleInit(hale);
+apple = document.createElement("div");
+appleInit(apple);
+
+// appleInit(apple);
 let lastVisited = [];
 for (var i = 0; i < hale.length; i++) {
   lastVisited.push({ x: hale[i].x, y: hale[i].y });
 }
+
 changeVisualPosition(snakeHead, px, py);
 
 document.addEventListener("keydown", moveInit);
 
 let started = false;
 let direction = undefined;
+
 function moveInit(event) {
   // left: 37
   // up: 38
@@ -93,10 +92,14 @@ function moveSnake() {
   py += vy;
   borders();
 
-  if (lastVisited.length > halelength) {
-    lastVisited = lastVisited.slice(0, halelength);
+  if (lastVisited.length >= hale.length + 1) {
+    lastVisited = lastVisited.slice(0, hale.length + 1);
   }
   console.log(lastVisited);
+
+  if (ax === px && ay === py) {
+    randomApplePos();
+  }
   changeVisualPosition(snakeHead, px, py);
   for (var i = 0; i < hale.length; i++) {
     hale[i].x = lastVisited[i].x;
@@ -135,13 +138,35 @@ function haleInit() {
     x = px - (i + 1);
     y = py;
     addHaledel(x, y);
-    snakeBox.appendChild(hale[i].elm);
+
     changeVisualPosition(hale[i].elm, hale[i].x, hale[i].y);
   }
 }
 
-function addHaledel() {
+function addHaledel(x, y) {
   elm = document.createElement("div");
   elm.classList.add("snake-square");
+  snakeBox.appendChild(elm);
   hale.push({ elm: elm, x: x, y: y });
+}
+
+function appleInit(apple) {
+  apple.classList.add("apple");
+  snakeBox.appendChild(apple);
+  changeVisualPosition(apple, ax, ay);
+}
+
+function randomApplePos() {
+  ax = Math.floor(Math.random() * gridSize);
+  ay = Math.floor(Math.random() * gridSize);
+  for (var i = 0; i < hale.length; i++) {
+    if (ax === hale[i].x && ay === hale[i].y) {
+      randomApplePos();
+    }
+  }
+  changeVisualPosition(apple, ax, ay);
+  addHaledel(
+    lastVisited[lastVisited.length - 1].x,
+    lastVisited[lastVisited.length - 1].y
+  );
 }
