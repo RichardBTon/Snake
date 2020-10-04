@@ -6,7 +6,6 @@ const pxPerRute = snakeBox.offsetHeight / gridSize;
 console.log(pxPerRute);
 
 let lastVisited = [];
-let grid = [];
 
 let vx = 0;
 let vy = 0;
@@ -15,23 +14,26 @@ let px = 8;
 let py = 8;
 let halelength = 3;
 
-function rutenettInit(rutenett) {
-  const row = [];
-  row.length = gridSize;
-  row.fill(0);
-  for (var i = 0; i < gridSize; i++) {
-    rutenett.push(row);
-  }
-}
+// let grid = [];
+// function rutenettInit(rutenett) {
+//   const row = [];
+//   row.length = gridSize;
+//   row.fill(0);
+//   for (var i = 0; i < gridSize; i++) {
+//     rutenett.push(row);
+//   }
+// }
+// rutenettInit(grid);
 
-rutenettInit(grid);
-// haleInit();
-changeVisualPosition(px, py);
+let hale = [];
+haleInit(hale);
+
+changeVisualPosition(snakeHead, px, py);
 
 document.addEventListener("keydown", moveInit);
 
 let started = false;
-
+let direction = undefined;
 function moveInit(event) {
   // left: 37
   // up: 38
@@ -42,33 +44,42 @@ function moveInit(event) {
   for (var k = 0; k < 4; k++) {
     if (event.keyCode === 37 + k) {
       if (!started) {
-        intervall = setInterval(moveSnake, 100);
+        intervall = setInterval(moveSnake, 120);
         started = true;
       }
     }
   }
   if (event.keyCode === 37) {
-    console.log("left");
-    vx = -1;
-    vy = 0;
+    if (direction != "right") {
+      direction = "left";
+      vx = -1;
+      vy = 0;
+    }
   }
   if (event.keyCode === 38) {
-    console.log("up");
-    vx = 0;
-    vy = -1;
+    if (direction != "down") {
+      direction = "up";
+      vx = 0;
+      vy = -1;
+    }
   }
   if (event.keyCode === 39) {
-    console.log("right");
-    vx = 1;
-    vy = 0;
+    if (direction != "left") {
+      direction = "right";
+      vx = 1;
+      vy = 0;
+    }
   }
   if (event.keyCode === 40) {
-    console.log("down");
-    vx = 0;
-    vy = 1;
+    if (direction != "up") {
+      direction = "down";
+      vx = 0;
+      vy = 1;
+    }
   }
   if (event.keyCode === 32) {
     if (started) {
+      direction = undefined;
       console.log("pause");
       clearInterval(intervall);
       started = false;
@@ -81,19 +92,24 @@ function moveSnake() {
   py += vy;
   borders();
   lastVisited.push([px, py]);
+
   if (lastVisited.length >= halelength) {
     lastVisited = lastVisited.slice(
       lastVisited.length - halelength,
       lastVisited.length
     );
   }
-  console.log(lastVisited);
-  changeVisualPosition(px, py);
+
+  changeVisualPosition(snakeHead, px, py);
+  for (var i = 0; i < hale.length; i++) {
+    hale;
+    changeVisualPosition(hale[i].elm, hale[i].x, hale[i].y);
+  }
 }
 
-function changeVisualPosition(x, y) {
-  snakeHead.style.left = x * pxPerRute + "px";
-  snakeHead.style.top = y * pxPerRute + "px";
+function changeVisualPosition(div, x, y) {
+  div.style.left = x * pxPerRute + "px";
+  div.style.top = y * pxPerRute + "px";
 }
 
 function borders() {
@@ -114,4 +130,20 @@ function borders() {
   if (px < 0) {
     px = gridSize - 1;
   }
+}
+
+function haleInit() {
+  for (var i = 0; i < halelength; i++) {
+    x = px - (i + 1);
+    y = py;
+    addHaledel(x, y);
+    snakeBox.appendChild(hale[i].elm);
+    changeVisualPosition(hale[i].elm, hale[i].x, hale[i].y);
+  }
+}
+
+function addHaledel() {
+  elm = document.createElement("div");
+  elm.classList.add("snake-square");
+  hale.push({ elm: elm, x: x, y: y });
 }

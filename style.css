@@ -1,6 +1,7 @@
 :root {
   /* Dette bør være noe som går opp i noe enkelt. Ikke sett noe primtall eller shit */
   --snake_dimentions: 800px;
+  --snake_backgroundColor: black;
 }
 * {
   box-sizing: border-box;
@@ -27,7 +28,7 @@ h1 {
   border-radius: 5px;
   height: var(--snake_dimentions);
   width: var(--snake_dimentions);
-  background-color: black;
+  background-color: var(--snake_backgroundColor);
   margin: auto;
   margin-top: 150px;
   position: relative;
@@ -39,7 +40,8 @@ h1 {
   height: calc(var(--snake_dimentions) / 20);
   width: calc(var(--snake_dimentions) / 20);
 
-  border-radius: 2px;
+  border: solid 1px var(--snake_backgroundColor);
+  border-radius: 3px;
   background-color: red;
 }
 
