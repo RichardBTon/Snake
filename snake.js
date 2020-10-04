@@ -92,8 +92,8 @@ function moveSnake() {
   py += vy;
   borders();
 
-  if (lastVisited.length >= hale.length + 1) {
-    lastVisited = lastVisited.slice(0, hale.length + 1);
+  if (lastVisited.length >= hale.length + 5) {
+    lastVisited = lastVisited.slice(0, hale.length + 5);
   }
   console.log(lastVisited);
 
@@ -159,14 +159,21 @@ function appleInit(apple) {
 function randomApplePos() {
   ax = Math.floor(Math.random() * gridSize);
   ay = Math.floor(Math.random() * gridSize);
+
   for (var i = 0; i < hale.length; i++) {
     if (ax === hale[i].x && ay === hale[i].y) {
       randomApplePos();
+    } else {
+      changeVisualPosition(apple, ax, ay);
+      addHaledel(
+        lastVisited[lastVisited.length - 1].x,
+        lastVisited[lastVisited.length - 1].y
+      );
+      break;
     }
   }
-  changeVisualPosition(apple, ax, ay);
-  addHaledel(
-    lastVisited[lastVisited.length - 1].x,
-    lastVisited[lastVisited.length - 1].y
-  );
 }
+
+// function haleCrash(x, y) {
+//
+// }
