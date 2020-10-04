@@ -5,8 +5,6 @@ const gridSize = 20;
 const pxPerRute = snakeBox.offsetHeight / gridSize;
 console.log(pxPerRute);
 
-let lastVisited = [];
-
 let vx = 0;
 let vy = 0;
 
@@ -27,7 +25,10 @@ let halelength = 3;
 
 let hale = [];
 haleInit(hale);
-
+let lastVisited = [];
+for (var i = 0; i < hale.length; i++) {
+  lastVisited.push({ x: hale[i].x, y: hale[i].y });
+}
 changeVisualPosition(snakeHead, px, py);
 
 document.addEventListener("keydown", moveInit);
@@ -79,7 +80,6 @@ function moveInit(event) {
   }
   if (event.keyCode === 32) {
     if (started) {
-      direction = undefined;
       console.log("pause");
       clearInterval(intervall);
       started = false;
@@ -88,21 +88,19 @@ function moveInit(event) {
 }
 
 function moveSnake() {
+  lastVisited.unshift({ x: px, y: py });
   px += vx;
   py += vy;
   borders();
-  lastVisited.push([px, py]);
 
-  if (lastVisited.length >= halelength) {
-    lastVisited = lastVisited.slice(
-      lastVisited.length - halelength,
-      lastVisited.length
-    );
+  if (lastVisited.length > halelength) {
+    lastVisited = lastVisited.slice(0, halelength);
   }
-
+  console.log(lastVisited);
   changeVisualPosition(snakeHead, px, py);
   for (var i = 0; i < hale.length; i++) {
-    hale;
+    hale[i].x = lastVisited[i].x;
+    hale[i].y = lastVisited[i].y;
     changeVisualPosition(hale[i].elm, hale[i].x, hale[i].y);
   }
 }
