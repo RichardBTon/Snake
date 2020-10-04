@@ -2,6 +2,7 @@
   /* Dette bør være noe som går opp i noe enkelt. Ikke sett noe primtall eller shit */
   --snake_dimentions: 800px;
   --snake_backgroundColor: #ffd43b;
+  --snakeColor: #4b8bbe;
 }
 * {
   box-sizing: border-box;
@@ -21,6 +22,10 @@ html {
 }
 
 h1 {
+  font-size: 100px;
+  color: var(--snake_backgroundColor);
+}
+h2 {
   font-size: 56px;
   color: var(--snake_backgroundColor);
 }
@@ -42,7 +47,7 @@ h1 {
   width: calc(var(--snake_dimentions) / 20);
   border: solid 1px var(--snake_backgroundColor);
   border-radius: 3px;
-  background-color: #4b8bbe;
+  background-color: var(--snakeColor);
 }
 
 #snakeHead {
@@ -57,4 +62,24 @@ h1 {
   border: solid 1px var(--snake_backgroundColor);
   border-radius: 3px;
   background-color: red;
+}
+
+.sizechoice {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.size-btn {
+  margin: 40px;
+  height: 80px;
+  background-color: var(--snake_backgroundColor);
+  color: var(--snakeColor);
+  font-size: 40px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+}
+
+.size-btn:hover {
+  background-color: #ffe873;
 }

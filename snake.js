@@ -4,7 +4,7 @@ const snakeHead = document.getElementById("snakeHead");
 const gridSize = 20;
 const pxPerRute = snakeBox.offsetHeight / gridSize;
 
-// fart
+// velocity
 let vx = 0;
 let vy = 0;
 // posisjon
@@ -44,7 +44,7 @@ function moveInit(event) {
   for (var k = 0; k < 4; k++) {
     if (event.keyCode === 37 + k) {
       if (!started) {
-        intervall = setInterval(moveSnake, 120);
+        gameLoop = setInterval(moveSnake, 120);
         started = true;
       }
     }
@@ -80,7 +80,7 @@ function moveInit(event) {
   if (event.keyCode === 32) {
     if (started) {
       console.log("pause");
-      clearInterval(intervall);
+      clearInterval(gameLoop);
       started = false;
     }
   }
@@ -100,11 +100,16 @@ function moveSnake() {
   if (ax === px && ay === py) {
     randomApplePos();
   }
-  changeVisualPosition(snakeHead, px, py);
-  for (var i = 0; i < hale.length; i++) {
-    hale[i].x = lastVisited[i].x;
-    hale[i].y = lastVisited[i].y;
-    changeVisualPosition(hale[i].elm, hale[i].x, hale[i].y);
+
+  if (haleCrash(px, py)) {
+    clearInterval(gameLoop);
+  } else {
+    changeVisualPosition(snakeHead, px, py);
+    for (var i = 0; i < hale.length; i++) {
+      hale[i].x = lastVisited[i].x;
+      hale[i].y = lastVisited[i].y;
+      changeVisualPosition(hale[i].elm, hale[i].x, hale[i].y);
+    }
   }
 }
 
@@ -160,20 +165,23 @@ function randomApplePos() {
   ax = Math.floor(Math.random() * gridSize);
   ay = Math.floor(Math.random() * gridSize);
 
-  for (var i = 0; i < hale.length; i++) {
-    if (ax === hale[i].x && ay === hale[i].y) {
-      randomApplePos();
-    } else {
-      changeVisualPosition(apple, ax, ay);
-      addHaledel(
-        lastVisited[lastVisited.length - 1].x,
-        lastVisited[lastVisited.length - 1].y
-      );
-      break;
-    }
+  if (haleCrash(ax, ay)) {
+    randomApplePos();
+  } else {
+    changeVisualPosition(apple, ax, ay);
+    addHaledel(
+      lastVisited[lastVisited.length - 1].x,
+      lastVisited[lastVisited.length - 1].y
+    );
   }
 }
 
-// function haleCrash(x, y) {
-//
-// }
+function haleCrash(x, y) {
+  let crash = false;
+  for (var i = 0; i < hale.length; i++) {
+    if (x === hale[i].x && y === hale[i].y) {
+      crash = true;
+    }
+  }
+  return crash;
+}
