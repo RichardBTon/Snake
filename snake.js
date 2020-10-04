@@ -7,12 +7,13 @@ console.log(pxPerRute);
 
 let lastVisited = [];
 let grid = [];
-let fart = 1;
+
 let vx = 0;
 let vy = 0;
 
-let px = 5;
-let py = 5;
+let px = 8;
+let py = 8;
+let halelength = 3;
 
 function rutenettInit(rutenett) {
   const row = [];
@@ -22,51 +23,95 @@ function rutenettInit(rutenett) {
     rutenett.push(row);
   }
 }
+
 rutenettInit(grid);
+// haleInit();
+changeVisualPosition(px, py);
 
 document.addEventListener("keydown", moveInit);
 
 let started = false;
+
 function moveInit(event) {
   // left: 37
   // up: 38
   // right: 39
   // down: 40
-  if (!started) {
-    hello = setInterval(changePosition, 100);
-    started = true;
-  }
+  // space = 32
 
+  for (var k = 0; k < 4; k++) {
+    if (event.keyCode === 37 + k) {
+      if (!started) {
+        intervall = setInterval(moveSnake, 100);
+        started = true;
+      }
+    }
+  }
   if (event.keyCode === 37) {
     console.log("left");
-    vx = -fart;
+    vx = -1;
     vy = 0;
   }
   if (event.keyCode === 38) {
     console.log("up");
-    vy = -fart;
     vx = 0;
+    vy = -1;
   }
   if (event.keyCode === 39) {
     console.log("right");
-    vx = fart;
+    vx = 1;
     vy = 0;
   }
   if (event.keyCode === 40) {
     console.log("down");
-    vy = fart;
     vx = 0;
+    vy = 1;
   }
   if (event.keyCode === 32) {
-    console.log("pause");
-    vy = 0;
-    vx = 0;
-    clearInterval(hello);
-    started = false;
+    if (started) {
+      console.log("pause");
+      clearInterval(intervall);
+      started = false;
+    }
   }
 }
 
-function changePosition() {
-  snakeHead.style.left = snakeHead.offsetLeft + vx * pxPerRute + "px";
-  snakeHead.style.top = snakeHead.offsetTop + vy * pxPerRute + "px";
+function moveSnake() {
+  px += vx;
+  py += vy;
+  borders();
+  lastVisited.push([px, py]);
+  if (lastVisited.length >= halelength) {
+    lastVisited = lastVisited.slice(
+      lastVisited.length - halelength,
+      lastVisited.length
+    );
+  }
+  console.log(lastVisited);
+  changeVisualPosition(px, py);
+}
+
+function changeVisualPosition(x, y) {
+  snakeHead.style.left = x * pxPerRute + "px";
+  snakeHead.style.top = y * pxPerRute + "px";
+}
+
+function borders() {
+  // console.log("hei");
+  // top border
+  if (py < 0) {
+    py = gridSize - 1;
+  }
+  // right border
+  if (px > gridSize - 1) {
+    px = 0;
+  }
+  // bottom border
+  if (py > gridSize - 1) {
+    py = 0;
+  }
+  // left border
+  if (px < 0) {
+    px = gridSize - 1;
+  }
 }

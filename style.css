@@ -47,6 +47,6 @@ h1 {
   /* left: calc(400px - var(--snake_dimentions) / 80);
   top: calc(400px - var(--snake_dimentions) / 80); */
 
-  left: calc(var(--snake_dimentions) / 5);
-  top: calc(var(--snake_dimentions) / 5);
+  /* left: calc(var(--snake_dimentions) / 5);
+  top: calc(var(--snake_dimentions) / 5); */
 }
