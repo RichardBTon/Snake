@@ -4,6 +4,7 @@
 }
 * {
   box-sizing: border-box;
+  /* transition: 0.2s; */
 }
 body,
 html {
@@ -35,8 +36,8 @@ h1 {
 .snake-square {
   position: absolute;
 
-  height: calc(var(--snake_dimentions) / 40);
-  width: calc(var(--snake_dimentions) / 40);
+  height: calc(var(--snake_dimentions) / 20);
+  width: calc(var(--snake_dimentions) / 20);
 
   border-radius: 2px;
   background-color: red;
