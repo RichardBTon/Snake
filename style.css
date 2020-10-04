@@ -1,0 +1,30 @@
+:root {
+  --snake_dimentions : 900px;
+}
+
+
+body, html {
+  margin: 0;
+  padding: 0;
+  background: lightcoral;
+  font-family: 'Work Sans', sans-serif;
+
+}
+.main-wrapper {
+  width: 60%;
+  margin: auto;
+  text-align: center;
+}
+
+h1 {
+  font-size: 56px;
+}
+
+.snake-box {
+  border-radius: 5px;
+  height: var(--snake_dimentions);
+  width: var(--snake_dimentions);
+  background-color: black;
+  margin: auto;
+  margin-top: 150px;
+}
