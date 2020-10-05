@@ -91,7 +91,6 @@ function moveInit(event) {
   }
   if (event.keyCode === 32) {
     if (started) {
-      console.log("pause");
       clearInterval(gameLoop);
       started = false;
     }
@@ -107,7 +106,6 @@ function moveSnake() {
   if (lastVisited.length >= hale.length + 5) {
     lastVisited = lastVisited.slice(0, hale.length + 5);
   }
-  console.log(lastVisited);
 
   if (ax === px && ay === py) {
     randomApplePos();
@@ -131,7 +129,6 @@ function changeVisualPosition(div, x, y) {
 }
 
 function borders() {
-  // console.log("hei");
   // top border
   if (py < 0) {
     py = gridSize - 1;
