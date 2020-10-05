@@ -3,18 +3,6 @@ const snakeHead = document.getElementById("snakeHead");
 
 let gridSize = 20;
 
-const sizebtns = document.getElementsByClassName("size-btn");
-for (var i = 0; i < sizebtns.length; i++) {
-  addListener(sizebtns[i], i);
-}
-
-function addListener(btn, i) {
-  btn.addEventListener("click", function () {
-    gridSize = i * 20 + 20;
-    pxPerRute = snakeBox.offsetHeight / gridSize;
-    gameInit();
-  });
-}
 
 let pxPerRute = snakeBox.offsetHeight / gridSize;
 
