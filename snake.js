@@ -11,40 +11,46 @@ for (var i = 0; i < sizebtns.length; i++) {
 function addListener(btn, i) {
   btn.addEventListener("click", function () {
     gridSize = i * 20 + 20;
-    console.log(gridSize);
+    pxPerRute = snakeBox.offsetHeight / gridSize;
+    gameInit();
   });
 }
-const pxPerRute = snakeBox.offsetHeight / gridSize;
+
+let pxPerRute = snakeBox.offsetHeight / gridSize;
+
 // velocity
 let vx = 0;
 let vy = 0;
-// posisjon
+// startposisjon
 let px = 8;
 let py = 8;
-// eple posisjon
+// eple startposisjon
 let ax = 15;
 let ay = 8;
-
-let halelength = 5;
+// start halelengthInit
+let halelengthInit = 3;
 
 let hale = [];
-haleInit(hale);
 apple = document.createElement("div");
-appleInit(apple);
-
-// appleInit(apple);
 let lastVisited = [];
-for (var i = 0; i < hale.length; i++) {
-  lastVisited.push({ x: hale[i].x, y: hale[i].y });
+
+function gameInit() {
+  haleInit(hale);
+
+  appleInit(apple);
+
+  for (var i = 0; i < hale.length; i++) {
+    lastVisited.push({ x: hale[i].x, y: hale[i].y });
+  }
+
+  changeVisualPosition(snakeHead, px, py);
 }
 
-changeVisualPosition(snakeHead, px, py);
+gameInit();
 
 document.addEventListener("keydown", moveInit);
-
 let started = false;
-let direction = undefined;
-
+let direction;
 function moveInit(event) {
   // left: 37
   // up: 38
@@ -98,6 +104,7 @@ function moveInit(event) {
 }
 
 function moveSnake() {
+  console.log(gridSize);
   lastVisited.unshift({ x: px, y: py });
   px += vx;
   py += vy;
@@ -148,7 +155,7 @@ function borders() {
 }
 
 function haleInit() {
-  for (var i = 0; i < halelength; i++) {
+  for (var i = 0; i < halelengthInit; i++) {
     x = px - (i + 1);
     y = py;
     addHaledel(x, y);

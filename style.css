@@ -1,6 +1,7 @@
 :root {
   /* Dette bør være noe som går opp i noe enkelt. Ikke sett noe primtall eller shit */
-  --snake_dimentions: 800px;
+  --snakeBox_dimentions: 800px;
+  --snake_dimentions: calc(var(--snakeBox_dimentions) / 20);
   --snake_backgroundColor: #ffd43b;
   --snakeColor: #4b8bbe;
 }
@@ -32,8 +33,8 @@ h2 {
 
 .snake-box {
   border-radius: 5px;
-  height: var(--snake_dimentions);
-  width: var(--snake_dimentions);
+  height: var(--snakeBox_dimentions);
+  width: var(--snakeBox_dimentions);
   background-color: var(--snake_backgroundColor);
   margin: auto;
   margin-bottom: 200px;
@@ -43,8 +44,8 @@ h2 {
 .snake-square {
   position: absolute;
 
-  height: calc(var(--snake_dimentions) / 20);
-  width: calc(var(--snake_dimentions) / 20);
+  height: var(--snake_dimentions);
+  width: var(--snake_dimentions);
   border: solid 1px var(--snake_backgroundColor);
   border-radius: 3px;
   background-color: var(--snakeColor);
@@ -57,8 +58,8 @@ h2 {
 .apple {
   position: absolute;
 
-  height: calc(var(--snake_dimentions) / 20);
-  width: calc(var(--snake_dimentions) / 20);
+  height: var(--snake_dimentions);
+  width: var(--snake_dimentions);
   border: solid 1px var(--snake_backgroundColor);
   border-radius: 3px;
   background-color: red;
