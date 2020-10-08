@@ -3,6 +3,8 @@ const snakeHead = document.getElementById("snakeHead");
 
 let gridSize = 20;
 
+// <<<<<<< Updated upstream
+// =======
 function addListener(btn, i) {
   btn.addEventListener("click", function () {
     gridSize = i * 20 + 20;
@@ -11,6 +13,7 @@ function addListener(btn, i) {
   });
 }
 
+// >>>>>>> Stashed changes
 let pxPerRute = snakeBox.offsetHeight / gridSize;
 
 // velocity
@@ -30,8 +33,11 @@ apple = document.createElement("div");
 let lastVisited = [];
 
 function gameInit() {
+  // <<<<<<< Updated upstream
+  // =======
   document.documentElement.style.setProperty("snake_dimentions", pxPerRute);
 
+  // >>>>>>> Stashed changes
   haleInit(hale);
 
   appleInit(apple);
@@ -101,7 +107,6 @@ function moveInit(event) {
 }
 
 function moveSnake() {
-  console.log(gridSize);
   lastVisited.unshift({ x: px, y: py });
   px += vx;
   py += vy;
@@ -155,7 +160,7 @@ function haleInit() {
   for (var i = 0; i < halelengthInit; i++) {
     x = px - (i + 1);
     y = py;
-    console.log(x, y);
+
     addHaledel(x, y);
 
     changeVisualPosition(hale[i].elm, hale[i].x, hale[i].y);
@@ -198,4 +203,8 @@ function haleCrash(x, y) {
     }
   }
   return crash;
+}
+
+function tap() {
+  clearInterval(gameLoop);
 }
